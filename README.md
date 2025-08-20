@@ -32,6 +32,3 @@ NanoTrade is a high-performance order routing system built in Java, designed to 
 ./gradlew build
 java -XX:+UseParallelGC -Xms4G -Xmx4G -jar build/libs/nanotrade-1.0-SNAPSHOT.jar
 ```
-
-## Portfolio Takeaway
-NanoTrade showcases my ability to build scalable, low-latency trading systems, leveraging industry-standard protocols (ITCH, FIX) and modern Java practices. It reflects a deep understanding of financial markets and performance optimization.
