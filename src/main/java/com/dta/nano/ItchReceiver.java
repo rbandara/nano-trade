@@ -11,7 +11,8 @@ import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
-import java.nio.channels.StandardProtocolFamily;
+import java.net.StandardProtocolFamily;
+import java.net.StandardSocketOptions;
 
 public class ItchReceiver {
     private static final int BUFFER_SIZE = 65536;

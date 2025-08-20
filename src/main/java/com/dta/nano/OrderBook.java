@@ -10,7 +10,9 @@ public class OrderBook {
 
     public void updateAdd(String symbol, char buySell, int shares, int price) {
         Map<String, TreeMap<Integer, Integer>> book = buySell == 'B' ? bids : asks;
-        book.computeIfAbsent(symbol, k -> new TreeMap<>(buySell == 'B' ? Map.Entry.comparingByKey().reversed() : Map.Entry.comparingByKey()))
+        book.computeIfAbsent(symbol, k -> buySell == 'B'
+                ? new TreeMap<Integer, Integer>((a, b) -> Integer.compare(b, a))
+                : new TreeMap<Integer, Integer>())
                 .merge(price, shares, Integer::sum);
     }
 

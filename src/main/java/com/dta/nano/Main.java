@@ -2,11 +2,17 @@ package com.dta.nano;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        ItchReceiver itch = new ItchReceiver("224.0.0.1", 50000); // Example multicast
+        ItchReceiver itch = new ItchReceiver("239.192.0.1", 12345); // Example multicast
         FixRouter fix = new FixRouter(itch.getOrderBook(), "localhost", 9876, "SENDER", "TARGET");
 
         // Start ITCH receiver in a thread
-        new Thread(itch::start).start();
+        new Thread(() -> {
+            try {
+                itch.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
 
         // Simulate market evaluation
         while (true) {

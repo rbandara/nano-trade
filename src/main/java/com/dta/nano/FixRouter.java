@@ -1,8 +1,10 @@
 package com.dta.nano;
 
 import quickfix.*;
-import quickfix.fix50sp2.*;0
+import quickfix.Message;
+import quickfix.fix50sp2.*;
 import quickfix.field.*;
+import quickfix.MessageCracker;
 
 public class FixRouter extends MessageCracker implements Application {
     private SocketInitiator initiator;
@@ -35,8 +37,6 @@ public class FixRouter extends MessageCracker implements Application {
     @Override
     public void fromAdmin(Message message, SessionID sessionID) throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon {}
     @Override
-    public void toApp(Message message, SessionID sessionID) throws DoNotSend {}
-    @Override
     public void fromApp(Message message, SessionID sessionID) throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType {
         crack(message, sessionID);
     }
@@ -50,10 +50,8 @@ public class FixRouter extends MessageCracker implements Application {
     public void routeOrder(String symbol, char side, int qty, double price) throws SessionNotFound {
         NewOrderSingle order = new NewOrderSingle(
                 new ClOrdID("ORD" + System.nanoTime()),
-                new Symbol(symbol),
                 new Side(side),
                 new TransactTime(),
-                new OrderQty(qty),
                 new OrdType(OrdType.LIMIT)
         );
         order.set(new Price(price));
@@ -64,7 +62,20 @@ public class FixRouter extends MessageCracker implements Application {
         int bestBid = orderBook.getBestBid(symbol);
         int bestAsk = orderBook.getBestAsk(symbol);
         if (bestBid > 0 && bestAsk < Integer.MAX_VALUE && bestAsk - bestBid > 100) { // Example: Wide spread
-            routeOrder(symbol, Side.BUY, 100, bestBid / 10000.0); // ITCH price is scaled
+            try {
+                routeOrder(symbol, Side.BUY, 100, bestBid / 10000.0); // ITCH price is scaled
+            } catch (SessionNotFound e) {
+                e.printStackTrace();
+            }
         }
     }
+
+
+    @Override
+    public void toApp(Message message, SessionID sessionId) throws DoNotSend {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toApp'");
+    }
+
+ 
 }

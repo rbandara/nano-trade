@@ -10,8 +10,10 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
-    implementation 'org.quickfixj:quickfixj-core:2.3.1' // FIX protocol
+    implementation 'org.quickfixj:quickfixj-core:2.3.1' // Core FIX engine
+    implementation 'org.quickfixj:quickfixj-messages-fix50sp2:2.3.1' // FIX 5.0 SP2 messages
     implementation 'com.lmax:disruptor:4.0.0' // Low-latency queue
     implementation 'org.slf4j:slf4j-api:2.0.16' // Logging
     implementation 'ch.qos.logback:logback-classic:1.5.12' // Logging backend
