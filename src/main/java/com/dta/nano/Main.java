@@ -1,0 +1,17 @@
+package com.dta.nano;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        ItchReceiver itch = new ItchReceiver("224.0.0.1", 50000); // Example multicast
+        FixRouter fix = new FixRouter(itch.getOrderBook(), "localhost", 9876, "SENDER", "TARGET");
+
+        // Start ITCH receiver in a thread
+        new Thread(itch::start).start();
+
+        // Simulate market evaluation
+        while (true) {
+            fix.evaluateAndRoute("AAPL");
+            Thread.sleep(1000); // Simplified; use Disruptor events in production
+        }
+    }
+}
