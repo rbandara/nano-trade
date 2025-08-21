@@ -1,7 +1,7 @@
 # NanoTrade: Low-Latency Order Router
 
 ## Overview
-NanoTrade is a high-performance order routing system built in Java, designed to process NASDAQ ITCH 5.0 market data and route orders via the FIX 5.0 SP2 protocol. It demonstrates expertise in low-latency programming, financial protocols, and trading system architecture.
+NanoTrade is a high-performance order routing system built in Java, designed to process NASDAQ ITCH 5.0 market data and route orders via the FIX 5.0 SP2 protocol. 
 
 ## Features
 - **ITCH Parser**: Processes binary ITCH messages (e.g., Add Order, Trade) over UDP multicast using Java NIO's `DatagramChannel`. Direct `ByteBuffer` minimizes garbage collection.

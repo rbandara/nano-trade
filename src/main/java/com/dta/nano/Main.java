@@ -16,7 +16,7 @@ public class Main {
 
         // Simulate market evaluation
         while (true) {
-            fix.evaluateAndRoute("AAPL");
+            fix.evaluateAndRoute("BP");
             Thread.sleep(1000); // Simplified; use Disruptor events in production
         }
     }

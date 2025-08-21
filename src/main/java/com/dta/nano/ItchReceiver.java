@@ -43,7 +43,8 @@ public class ItchReceiver {
         channel = DatagramChannel.open(StandardProtocolFamily.INET);
         channel.setOption(StandardSocketOptions.SO_REUSEADDR, true);
         channel.bind(new InetSocketAddress(port));
-        channel.join(InetAddress.getByName(multicastGroup), NetworkInterface.getByName("eth0"));
+        NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+        channel.join(InetAddress.getByName(multicastGroup), ni);
 
         // Setup Disruptor
         Disruptor<MarketEvent> disruptor = new Disruptor<>(MarketEvent.FACTORY, 1024, DaemonThreadFactory.INSTANCE);
